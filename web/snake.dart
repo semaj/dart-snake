@@ -1,9 +1,11 @@
 library snake;
 import 'dart:html';
+import 'dart_snake.dart';
 class Snake {
   int x = 100;
   int y = 100;
   Element snake;
+  List links = [];
   int length;
   var direction;
   
@@ -13,20 +15,23 @@ class Snake {
   }
   
   void keyPressed(KeyboardEvent e) {
-    if (e.keyCode == 38) { // up
-      direction = #up;
-    } else if (e.keyCode == 40) { // down
-      direction = #down;
-    } else if (e.keyCode == 37) { // left
-      direction = #left;
-    } else if (e.keyCode == 39) { // right
-      direction = #right;
+    switch (e.keyCode) {
+      case 38: direction = #up;
+      break;
+      case 40: direction = #down;
+      break;
+      case 37: direction = #left;
+      break;
+      case 39: direction = #right;
+      break;
     }
   }
   
-  int addToX(int more) => this.x = (this.x + more) % window.outerWidth;
+  int isOnEats(Eats eats) => this.x == eats.x && this.y == eats.y;
   
-  int addToY(int more) => this.y = (this.y + more) % window.outerHeight;
+  int addToX(int more) => (this.x + more) % windowWidth();
+  
+  int addToY(int more) => (this.y + more) % windowHeight();
   
   void addListeners() {
     window.onKeyUp.listen((KeyboardEvent e) {
