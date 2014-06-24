@@ -3,25 +3,19 @@ import 'dart:html';
 import 'dart:math';
 import 'dart_snake.dart';
 class Eats {
-  int x;
-  int y;
-  
-  Eats([int x = 200, int y = 200]);
-  
+  int x = 300;
+  int y = 300;
+
   void randomPosition() {
     Random r = new Random();
-    x = r.nextInt(windowWidth());
-    y = r.nextInt(windowHeight());
+    x = (r.nextInt(windowWidth()) / SQUARE_SIZE).floor() * SQUARE_SIZE;
+    y = (r.nextInt(windowHeight()) / SQUARE_SIZE).floor() * SQUARE_SIZE;
   }
-  
+
   void draw() {
-    print('blah etas');
-    document.body.text = 'SUP';
-    document.body.children.add(new DivElement()
-      ..className = 'eats'
-      ..style.left = "1000px"
-      ..style.bottom = "${y}px"
-    );
-    
+    querySelector('#board').children.add(new DivElement()
+        ..className = 'eats'
+        ..style.left = "${x}px"
+        ..style.bottom = "${y}px");
   }
 }
