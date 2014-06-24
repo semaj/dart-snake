@@ -10,7 +10,6 @@ void main() {
   Snake snake = new Snake()
     ..addListeners();
   new Timer.periodic(new Duration(seconds: 1), (Timer timer) {
-    print('hi');
     move(eats, snake);
     draw(eats, snake);
   });
@@ -19,9 +18,9 @@ void main() {
 void move(Eats eats, Snake snake) {
   if (snake.isOnEats(eats)) {
     eats.randomPosition();
-    snake.nextMove(true);
+    snake.doNextMove(true);
   } else {
-    snake.nextMove(false);
+    snake.doNextMove(false);
   }
 }
 

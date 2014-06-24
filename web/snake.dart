@@ -10,17 +10,24 @@ class Snake {
   
   Snake() {
     directions = {
-      38: (bool ate) { move(0, SQUARE_SIZE, ate); }, 
-      40: (bool ate) { move(0, -SQUARE_SIZE, ate); }, 
-      37: (bool ate) { move(-SQUARE_SIZE, 0, ate); },
-      39: (bool ate) { move(SQUARE_SIZE, 0, ate); }
+      38: () { move(0, SQUARE_SIZE); }, 
+      40: () { move(0, -SQUARE_SIZE); }, 
+      37: () { move(-SQUARE_SIZE, 0); },
+      39: () { move(SQUARE_SIZE, 0); }
     };
+    nextMove = directions[40];
   }
   
-  Function keyPressed(KeyboardEvent e) => nextMove = directions[e.keyCode];
+  Function keyPressed(KeyboardEvent e) {
+    if (directions.keys.contains(e.keyCode)) {
+      nextMove = directions[e.keyCode];
+    }
+  }
   
-  void move(int moreX, int moreY, bool ate) {
-    links.insert(0, [addToX(moreX), addToY(moreY)]);
+  void move(int moreX, int moreY) => links.insert(0, [addToX(moreX), addToY(moreY)]);
+  
+  void doNextMove(bool ate) {
+    nextMove();
     if (!ate) links.removeLast();
   }
   
@@ -40,10 +47,10 @@ class Snake {
   
   void draw() {
     for (List<int> link in links) {
-      document.body.append(new DivElement()
-        ..attributes['left'] = "${link[0]}px"
-        ..attributes['bottom'] = "${link[1]}px"
-        ..attributes['color'] = "red"
+      document.body.children.add(new DivElement()
+        ..className = 'snake'
+        ..style.left = "${link[0]}px"
+        ..style.bottom = "${link[1]}px"
       );
     }
   }

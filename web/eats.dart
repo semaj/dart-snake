@@ -15,10 +15,12 @@ class Eats {
   }
   
   void draw() {
-    document.body.append(new DivElement()
-      ..attributes['left'] = "${x}px"
-      ..attributes['bottom'] = "${y}px"
-      ..attributes['color'] = "red"
+    print('blah etas');
+    document.body.text = 'SUP';
+    document.body.children.add(new DivElement()
+      ..className = 'eats'
+      ..style.left = "1000px"
+      ..style.bottom = "${y}px"
     );
     
   }
